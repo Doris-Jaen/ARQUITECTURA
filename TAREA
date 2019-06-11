@@ -1,39 +1,145 @@
-@@ -0,0 +1,41 @@
+LENGUAJE ENSAMBLADORe
 
-   ;Ejemplo de un lenjuage ensamblador - Emu8086
-   include "emu8086.inc"   
-   
-   .data
-   Suma db 2 dup(?)
-   
-   Sumas proc 
-    printn "Ingresar el primer numero;"
-    call scan_num
-    mov suma[0],cl
-    printn ""
-    printn "Ingresar el segundo numero;"
-    call scan_num
-    mov suma[1],cl
-    printn ""
-    
-    xor ax,ax
-    add al,suma[0]
-    add al,suma[1]
-    printn ""  
-    printn "La suma es:" 
-    call print_num  
-    
-    sumas endp
-   exit:
-   
-   printn ""
-   printn "Presione enter para salir..." 
-   mov ah, 0
-   int 16h
-   ret
-   
-   define_print_string
-   define_print_num
-   define_print_num_uns
-   define_scan_num
-   end
+¿QUE ES UN  LENGUAJE ENSAMBLADOR?
+Es un lenguaje de programación de bajo nivel.Implementa una representación simbólica de los códigos de máquina binarios y otras constantes necesarias para programar una arquitectura de procesador y constituye la representación más directa del código máquina específico para cada arquitectura legible por un programador
+
+Los ensambladores son generalmente más simples de escribir que los compiladores para los lenguajes de alto nivel, y han estado disponibles desde los años 1950 son de segunda generación
+
+Los lenguajes ensambladores eliminaron mucha de la propensión a errores y del consumo de tiempo de la programación de los lenguajes de primera generación
+
+
+Características
+El código escrito en lenguaje ensamblador posee una cierta dificultad de ser entendido ya que su estructura se acerca al lenguaje máquina, es decir, es un lenguaje de bajo nivel.
+El lenguaje ensamblador es difícilmente portable, es decir, un código escrito para un microprocesador, puede necesitar ser modificado, para poder ser usado en otra máquina distinta
+Los programas hechos por un programador experto en lenguaje ensamblador son generalmente mucho más rápidos y consumen menos recursos del sistema 
+Con el lenguaje ensamblador se tiene un control muy preciso de las tareas realizadas por un microprocesador por lo que se pueden crear segmentos de código difíciles
+Al aire libreVelocidad
+
+El proceso de traducción que realizan los intérpretes, implica un proceso de cómputo adicional al que el programador quiere realizar. Por ello, nos encontraremos con que un intérprete es siempre más lento que realizar la misma acción en Lenguaje Ensamblador, simplemente porque tiene el costo adicional de estar traduciendo el programa, cada vez que lo ejecutamos.
+
+De ahí nacieron los compiladores, que son mucho más rápidos que los intérpretes, pues hacen la traducción una vez y dejan el código objeto, que ya es Lenguaje de Máquina, y se puede ejecutar muy rápidamente. Aunque el proceso de traducción es más complejo y costoso que el de ensamblar un programa, normalmente podemos despreciarlo, contra las ventajas de codificar el programa más rápidamente.
+
+Sin embargo, la mayor parte de las veces, el código generado por un compilador es menos eficiente que el código equivalente que un programador escribiría. La razón es que el compilador no tiene tanta inteligencia, y requiere ser capaz de crear código genérico, que sirva tanto para un programa como para otro; en cambio, un programador humano puede aprovechar las características específicas del problema, reduciendo la generalidad pero al mismo tiempo, no desperdicia ninguna instrucción, no hace ningún proceso que no sea necesario.
+
+Para darnos una idea, en una PC, y suponiendo que todos son buenos programadores, un programa para ordenar una lista tardará cerca de 20 veces más en Visual Basic (un intérprete), y 2 veces más en C (un compilador), que el equivalente en Ensamblador.
+
+Por ello, cuando es crítica la velocidad del programa, Ensamblador se vuelve un candidato lógico como lenguaje.
+
+Ahora bien, esto no es un absoluto; un programa bien hecho en C puede ser muchas veces más rápido que un programa mal hecho en Ensamblador; sigue siendo sumamente importante la elección apropiada de algoritmos y estructuras de datos. Por ello, se recomienda buscar optimizar primero estos aspectos, en el lenguaje que se desee, y solamente usar Ensamblador cuando se requiere más optimización y no se puede lograr por estos medios.
+
+Tamaño
+
+Por las mismas razones que vimos en el aspecto de velocidad, los compiladores e intérpretes generan más código máquina del necesario; por ello, el programa ejecutable crece. Así, cuando es importante reducir el tamaño del ejecutable, mejorando el uso de la memoria y teniendo también beneficios en velocidad, puede convenir usar el lenguaje Ensamblador. Entre los programas que es crítico el uso mínimo de memoria, tenemos a los virus y manejadores de dispositivos (drivers). Muchos de ellos, por supuesto, están escritos en lenguaje Ensamblador.
+
+Flexibilidad
+
+Las razones anteriores son cuestión de grado: podemos hacer las cosas en otro lenguaje, pero queremos hacerlas más eficientemente. Pero todos los lenguajes de alto nivel tienen limitantes en el control; al hacer abstracciones, limitan su propia capacidad. Es decir, existen tareas que la máquina puede hacer, pero que un lenguaje de alto nivel no permite. Por ejemplo, en Visual Basic no es posible cambiar la resolución del monitor a medio programa; es una limitante, impuesta por la abstracción del GUI Windows. En cambio, en ensamblador es sumamente sencillo, pues tenemos el acceso directo al hardware del monitor.
+
+Tiempo de programación
+
+Al ser de bajo nivel, el Lenguaje Ensamblador requiere más instrucciones para realizar el mismo proceso, en comparación con un lenguaje de alto nivel. Por otro lado, requiere de más cuidado por parte del programador, pues es propenso a que los errores de lógica se reflejen más fuertemente en la ejecución.
+
+Por todo esto, es más lento el desarrollo de programas comparables en Lenguaje Ensamblador que en un lenguaje de alto nivel, pues el programador goza de una menor abstracción.
+
+Programas fuente grandes
+
+Por las mismas razones que aumenta el tiempo, crecen los programas fuentes; simplemente, requerimos más instrucciones primitivas para describir procesos equivalentes. Esto es una desventaja porque dificulta el mantenimiento de los programas, y nuevamente reduce la productividad de los programadores.
+Al aire l
+Emulador 8086
+1.	Introducción
+El emu8086 es un emulador del microprocesador 8086 (Intel o AMD compatible) con assembler integrado. A diferencia del entorno de programación en assembler utilizado anteriormente en la cátedra (MASM), este entorno corre sobre Windows y cuenta con una interfaz gráfica muy amigable e intuitiva que facilita el aprendizaje el leguaje de programación en assembler.
+
+
+
+1.1.	Tamaño de los datos
+En el 8086/88 se definen los siguientes tamaños de datos:
+            4 bits - nibble   
+            8 bits - byte
+            16 bits - word
+            32 bits - dword 
+1.2.	Almacenamiento de datos
+El 8086/88 usa el formato de almacenamiento denominado “little endian”, esto quiere decir que el byte menos significativa (LSB) del dato es guardada en la parte baja de la memoria. Por ejemplo el dato 0x1122 será almacenado en memoria: Es importante tener esto en cuanta a la hora de acceder a los datos para operar con ellos.
+
+1.3.	Segmentación
+El 8086/88 tiene un ancho de bus de datos de 16 bits y un ancho de bus de direcciones de 20 bits. Con 20 bits de direcciones se puede acceder a 220 = 1 Mega posiciones de memoria. Como cada dirección de memoria contiene un byte, el total de memoria accedido por el procesador es de 1 Mbyte. El bus de datos de 16 bits lo que implica que en cada acceso a memoria se leen dos 22 11 000….0 FFF….F Ensamblador 8086/88 2 posiciones. Esta es la razón por que la que es importante saber el modo de almacenamiento de los datos en memoria, visto en el apartado anterior. El problema que se les planteó a los diseñadores fue que siendo los registros internos del procesador de 16 bits, y el bus de direcciones de 20; faltaban 4 bits para poder aprovechar al máximo las capacidades de direccionamiento del procesador. Para resolver esto, cada dirección de memoria será especificada como un segmento y un desplazamiento dentro de ese segmento. Esta solución divide la memoria en segmemtos de 64 K, lo cual limitó bastante los diseños de los procesadores posteriores de la familia (80286,80386 etc.); aunque posteriormente se idearon métodos para resolver este problema, como la memoria extendida (no compatible, por supuesto, con el 8086/88). Así pues el 8086/88 dispone de una serie de registros para almacenar los valores de segmentos, como veremos en los siguientes apartados. Para obtener la dirección de memoria (dirección efectiva): se toma el valor de registro de segmento, se desplaza 4 bits, y se le suma el valor del desplazamiento. Segmento 0000 0000 0000 1010 desplazado 4 bits Desplazamiento + 0101 1111 0000 1010 Dirección efectiva 0000 0101 1111 0101 1010 Esta operación la realiza el procesador de forma interna automáticamente.
+
+
+EJEMPLOS DE EMU 8086
+  1°
+  ;Saber si un numero es mayor
+
+name "mayor"
+
+mov AX, 5
+mov BX, 5
+;mov DX, AX
+
+;CX el valor más grande entre AX Y BX 
+;AX-BX mayor a 0
+sub AX,BX
+js A_MENOR_B
+mov CX,AX
+jmp FIN
+A_MENOR_B:
+mov CX,BX
+FIN:
+
+;mov AX,DX
+ret
+
+2°
+Multiplicacion:
+
+ORG 100h
+MOV AL, 200 ; AL = 0C8h
+MOV BL, 4
+MUL BL ; AX = 0320h (800)
+
+RET            
+
+3°
+.model  small  
+ .stack
+ .data
+         mensaje db 13,10,'HOLA  MUNDO $'
+           
+         
+          
+         
+ .code 
+     inicio:
+             mov ax, @data
+             mov ds,ax
+                      
+                      
+                  
+             ;lea dx, mensaje  
+             mov dx, offset mensaje   
+             
+             mov ah, 9h  
+             
+             int 21h
+     end inicio
+
+
+4°
+;Saber si un numero es mayor
+
+name "mayor"
+
+mov AX, 5
+mov BX, 5
+;mov DX, AX
+
+;CX el valor más grande entre AX Y BX 
+;AX-BX mayor a 0
+sub AX,BX
+js A_MENOR_B
+mov CX,AX
+jmp FIN
+A_MENOR_B:
+mov CX,BX
+FIN:
+
+;mov AX,DX
+ret
